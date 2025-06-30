@@ -8,16 +8,21 @@ const leadRoutes = require("./routes/leads");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigin = "https://astoria-landing-mu.vercel.app";
+const allowedOrigin = "https://astoria-app.vercel.app";
 
 // Middleware
 app.use(
   cors({
     origin: allowedOrigin,
     methods: ["GET", "POST"],
+    credentials: false,
   })
 );
 app.use(express.json());
+
+app.get("/health", (req, res) => {
+  res.send("✅ Backend is live");
+});
 
 // Routes
 app.use("/api/leads", leadRoutes);
